@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayu | Petite Pousse Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orelega+One&family=Outfit:wght@300;400;500;600&family=Yeseva+One&family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal-main: #20B7BC;
+            --teal-sub: #24ACBF;
+            --brown: #4B2C1D;
+            --mint: #CDE3D1;
+            --dark-text: #333333;
+            --off-white: #F8F6F0;
+            --yellow-light: #FFFEB9;
+            --gray-sub: #545454;
+            --gray-bg: #E8E8E8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            background-color: var(--off-white);
+            color: var(--dark-text);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: rgba(248, 246, 240, 0.95);
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-logo {
+            font-family: 'Orelega One', serif;
+            font-size: 24px;
+            color: var(--dark-text);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .header-catchcopy {
+            font-family: 'Zen Antique Soft', serif;
+            font-size: 14px;
+            color: var(--dark-text);
+            margin-top: 5px;
+        }
+
+        .menu-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--teal-main);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: white;
+            border-radius: 1px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--teal-main);
+            z-index: 1001;
+            padding: 80px 40px;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 25px;
+        }
+
+        .mobile-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu ul li a:hover {
+            opacity: 0.7;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 130px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .hero-logo {
+            max-width: 276px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-main {
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-hill {
+            width: 100%;
+            position: relative;
+            margin-top: -10px;
+            margin-bottom: 0;
+        }
+
+        .hero-hill img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: -1px;
+        }
+
+        .hero-welcome {
+            position: absolute;
+            left: 30px;
+            top: 30%;
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px;
+            color: var(--gray-sub);
+            text-align: left;
+            line-height: 1.6;
+            z-index: 10;
+        }
+
+        @media (max-width: 600px) {
+            .hero-welcome {
+                display: none;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: var(--mint);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-family: 'Orelega One', serif;
+            font-size: 36px;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .section-title span {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            font-size: 14px;
+            color: var(--gray-sub);
+        }
+
+        .about-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-slide {
+            display: none;
+        }
+
+        .about-slide.active {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .about-text p {
+            font-size: 14px;
+            line-height: 2;
+            color: var(--dark-text);
+        }
+
+        .about-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .about-nav button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: var(--teal-main);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .about-nav button:hover {
+            background-color: var(--teal-sub);
+        }
+
+        /* Skill Section */
+        .skill {
+            padding: 80px 0;
+            background-color: var(--yellow-light);
+        }
+
+        .skill .section-title h2 {
+            font-family: 'Orelega One', serif;
+        }
+
+        .skill .section-title span {
+            color: var(--gray-sub);
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .skill-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            color: var(--dark-text);
+            margin-bottom: 20px;
+            order: 1;
+        }
+
+        .skill-card-image {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            order: 2;
+            margin-bottom: 15px;
+        }
+
+        .skill-card-image img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .skill-card .skill-tools {
+            font-size: 11px;
+            color: var(--gray-sub);
+            margin-bottom: 15px;
+            font-family: 'Outfit', sans-serif;
+            order: 3;
+        }
+
+        .skill-card p:not(.skill-tools) {
+            font-size: 12px;
+            color: var(--dark-text);
+            line-height: 1.8;
+            text-align: left;
+            order: 4;
+        }
+
+        /* Works Section */
+        .works {
+            padding: 80px 0;
+            background-color: var(--mint);
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .works-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .works-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .works-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+        }
+
+        .works-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .works-card:hover .works-card-image img {
+            transform: scale(1.05);
+        }
+
+        .works-card-content {
+            padding: 20px;
+        }
+
+        .works-card-content h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--dark-text);
+        }
+
+        .works-card-content p {
+            font-size: 12px;
+            color: var(--gray-sub);
+            margin-bottom: 15px;
+        }
+
+        .works-card-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--teal-main);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .works-card-btn:hover {
+            background-color: var(--teal-sub);
+        }
+
+        /* Art Gallery Section */
+        .art-gallery {
+            padding: 80px 0;
+            background-color: var(--gray-bg);
+            text-align: center;
+        }
+
+        .art-gallery .section-title h2 {
+            color: var(--teal-main);
+        }
+
+        .art-gallery .section-title span {
+            color: var(--teal-main);
+        }
+
+        .art-gallery-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .art-gallery-content p {
+            font-size: 14px;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+            line-height: 2;
+        }
+
+        .art-gallery-btn {
+            display: inline-block;
+            font-size: 18px;
+            color: var(--dark-text);
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: opacity 0.3s ease;
+        }
+
+        .art-gallery-btn:hover {
+            opacity: 0.7;
+        }
+
+        .art-gallery-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 4px solid var(--teal-main);
+        }
+
+        .art-gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: var(--yellow-light);
+            text-align: center;
+        }
+
+        .contact .section-title h2 {
+            color: var(--dark-text);
+        }
+
+        .contact .section-title span {
+            color: var(--gray-sub);
+        }
+
+        .contact-text {
+            font-size: 14px;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+        }
+
+        .contact-email {
+            display: inline-block;
+            background-color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            color: var(--dark-text);
+            margin-bottom: 30px;
+        }
+
+        .contact-email a {
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px;
+            background-color: var(--teal-main);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-links img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .skill-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .header-logo {
+                font-size: 18px;
+            }
+
+            .header-catchcopy {
+                font-size: 12px;
+            }
+
+            .menu-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hero {
+                padding-top: 110px;
+            }
+
+            .hero-logo {
+                max-width: 210px;
+            }
+
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .about-card {
+                padding: 30px 20px;
+            }
+
+            .about-slide.active {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .about-text {
+                text-align: center;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 20px;
+            }
+
+            .skill-card {
+                padding: 25px 20px;
+            }
+
+            .skill-card h3 {
+                font-size: 18px;
+            }
+
+            .skill-card-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .works-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .contact-email {
+                font-size: 14px;
+                padding: 12px 25px;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="header-logo">Mayu | Petite Pousse<br>Portfolio</div>
+            <div class="header-catchcopy">"圧倒的に売れる"デザインを。</div>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="overlay" onclick="toggleMenu()"></div>
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" onclick="toggleMenu()">×</button>
+        <ul>
+            <li><a href="#about" onclick="toggleMenu()">About</a></li>
+            <li><a href="#skill" onclick="toggleMenu()">Skill</a></li>
+            <li><a href="#works" onclick="toggleMenu()">Works</a></li>
+            <li><a href="#art-gallery" onclick="toggleMenu()">Art Gallery</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-logo">
+            <img src="images/メインロゴ.png" alt="Petite Pousse">
+        </div>
+        <div class="hero-main">
+            <div class="hero-welcome">
+                thank you for<br>visiting my website!
+            </div>
+            <div class="hero-hill">
+                <img src="images/トップ_トリミング済.png" alt="芽が生える丘">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>About</h2>
+                <span>- プロフィール・私の想い -</span>
+            </div>
+            <div class="about-card animate-on-scroll">
+                <div class="about-slide active" data-slide="1">
+                    <div class="about-text">
+                        <p>
+                            東京を拠点に活動する"まゆ"です。<br><br>
+                            ロゴやバナーなどのデザインに加え、<br>
+                            AIマンガや動画編集を通して、<br>
+                            「集客できるデザイン」と「伝わるストーリー制作」で<br>
+                            信頼を育むサポートをしています。
+                        </p>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/About.png" alt="プロフィール画像">
+                    </div>
+                </div>
+            </div>
+            <div class="about-nav">
+                <button onclick="changeSlide('first')">&lt;&lt;</button>
+                <button onclick="changeSlide('prev')">&lt;</button>
+                <button onclick="changeSlide('next')">&gt;</button>
+                <button onclick="changeSlide('last')">&gt;&gt;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skill Section -->
+    <section class="skill" id="skill">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Skill</h2>
+                <span>ーできることー</span>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-card animate-on-scroll">
+                    <h3>design</h3>
+                    <div class="skill-card-image">
+                        <img src="images/Design.png" alt="Design">
+                    </div>
+                    <p class="skill-tools">Illustrator / Photoshop / Figma / Canva</p>
+                    <p>コンセプトからヒアリングし、ターゲットに刺さるLP、バナーのデザインを一緒に作り上げます。<br>また、お店のロゴや名刺・チラシなどの販促物やスライド資料等のグラフィックデザインも作成します。</p>
+                </div>
+                <div class="skill-card animate-on-scroll">
+                    <h3>video editing</h3>
+                    <div class="skill-card-image">
+                        <img src="images/Video Editing.png" alt="Video Editing">
+                    </div>
+                    <p class="skill-tools">Premiere Pro</p>
+                    <p>見ていて飽きない、視聴者を惹きつける魅力的な動画を作成いたします。<br>ショート動画・長尺動画・マンガ動画・VSLなど…用途に合わせた最適な形を考えご提案いたします。AI動画にも対応可能です。</p>
+                </div>
+                <div class="skill-card animate-on-scroll">
+                    <h3>AI</h3>
+                    <div class="skill-card-image">
+                        <img src="images/AI.png" alt="AI">
+                    </div>
+                    <p class="skill-tools">ChatGPT / StableDiffusion / CLIP STUDIO etc</p>
+                    <p>主に自己紹介・商品紹介用のAIマンガを制作しています。<br>その他、画像生成や動画生成を始めとした素材の制作、アイコン作成など、用途に合わせた制作が可能です。<br>CursorなどAIツールのアドバイスも可能。</p>
+                </div>
+                <div class="skill-card animate-on-scroll">
+                    <h3>Marketing</h3>
+                    <div class="skill-card-image">
+                        <img src="images/Marketing.png" alt="Marketing">
+                    </div>
+                    <p class="skill-tools">Meta / Google</p>
+                    <p>主にMeta広告を使用した広告運用を始め、必要な動画・バナー・LP・マンガLPなどの広告クリエイティブも一気通貫で制作まで行います。<br>UTAGEの活用も含め、マーケティング目線で売上アップのための施策を考えます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section class="works" id="works">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Works</h2>
+                <span>制作実績</span>
+            </div>
+            <div class="works-grid">
+                <div class="works-card animate-on-scroll">
+                    <div class="works-card-image">
+                        <img src="images/Works Petite Pousse.png" alt="Petite Pousse - グラフィックデザイン">
+                    </div>
+                    <div class="works-card-content">
+                        <h3>Petite Pousse - グラフィックデザイン</h3>
+                        <p>自身のブランドのロゴと名刺をデザイン</p>
+                        <a href="#" class="works-card-btn">詳細はこちら</a>
+                    </div>
+                </div>
+                <div class="works-card animate-on-scroll">
+                    <div class="works-card-image">
+                        <img src="images/Works 美容院.png" alt="美容院 - グラフィックデザイン">
+                    </div>
+                    <div class="works-card-content">
+                        <h3>美容院 - グラフィックデザイン</h3>
+                        <p>ロゴ・名刺・SNS用のアイコンバリエーションを制作</p>
+                        <a href="#" class="works-card-btn">詳細はこちら</a>
+                    </div>
+                </div>
+                <div class="works-card animate-on-scroll">
+                    <div class="works-card-image">
+                        <img src="images/Works 英会話スクール.png" alt="英会話スクール - グラフィックデザイン">
+                    </div>
+                    <div class="works-card-content">
+                        <h3>英会話スクール - グラフィックデザイン</h3>
+                        <p>企業ロゴと名刺を制作</p>
+                        <a href="#" class="works-card-btn">詳細はこちら</a>
+                    </div>
+                </div>
+                <div class="works-card animate-on-scroll">
+                    <div class="works-card-image">
+                        <img src="images/Works チラシ.png" alt="チラシ・パンフレット - グラフィックデザイン">
+                    </div>
+                    <div class="works-card-content">
+                        <h3>チラシ・パンフレット - グラフィックデザイン</h3>
+                        <p>店舗オープンキャンペーンやイベント告知など</p>
+                        <a href="#" class="works-card-btn">詳細はこちら</a>
+                    </div>
+                </div>
+                <div class="works-card animate-on-scroll">
+                    <div class="works-card-image">
+                        <img src="images/クライアントワーク Works AIマンガ.png" alt="AIマンガ - クライアントワーク">
+                    </div>
+                    <div class="works-card-content">
+                        <h3>AIマンガ - クライアントワーク</h3>
+                        <p>自己紹介・商品紹介など</p>
+                        <a href="#" class="works-card-btn">他の作品を見る</a>
+                    </div>
+                </div>
+                <div class="works-card animate-on-scroll">
+                    <div class="works-card-image">
+                        <img src="images/自主制作 Works AIマンガ.png" alt="AIマンガ - 自主制作">
+                    </div>
+                    <div class="works-card-content">
+                        <h3>AIマンガ - 自主制作</h3>
+                        <p>オフ会レポ・商品紹介などのオリジナル作品</p>
+                        <a href="#" class="works-card-btn">他の作品を見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Art Gallery Section -->
+    <section class="art-gallery" id="art-gallery">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Art Gallery</h2>
+                <span>イラスト集まとめ</span>
+            </div>
+            <div class="art-gallery-content animate-on-scroll">
+                <p>
+                    こちらは趣味で制作した画像や動画をまとめたページです。<br>
+                    *このサイトの画像は全てオリジナルで生成したものを使用しています。
+                </p>
+                <a href="#" class="art-gallery-btn">🐾 CLICK HERE 🐾</a>
+                <div class="art-gallery-image">
+                    <img src="images/アイコン円.png" alt="Art Gallery">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Contact</h2>
+                <span>お問い合わせ</span>
+            </div>
+            <p class="contact-text animate-on-scroll">
+                下記アドレスへメールにて<br>ご連絡ください。
+            </p>
+            <div class="contact-email animate-on-scroll">
+                <a href="mailto:petitepousse22@gmail.com">petitepousse22@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="images/Xアイコン.png" alt="X (Twitter)">
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="images/Instagramアイコン.png" alt="Instagram">
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="images/Threadsアイコン.png" alt="Threads">
+            </a>
+        </div>
+        <p>Petite Pousse - Creative Lab for Growth & Support -</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const overlay = document.querySelector('.overlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // About Slide Navigation (準備用 - 現在は1ページのみ)
+        let currentSlide = 1;
+        const totalSlides = 1;
+
+        function changeSlide(direction) {
+            const card = document.querySelector('.about-card');
+            card.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
